@@ -1,39 +1,49 @@
 class Statistics {
   constructor() {
-    this.sessionsNb = 0;
-    this.sessionsEarning = {
-      "1": 0,
-      "2": 0,
-      "3": 0
-    };
+    this.sessionsNb = new Array();
+    this.sessionsEarning = new Array();
   }
 
-  incrementSessionsNb() {
-    this.sessionsNb += 1;
+  initialize() {
+    var self = this;
+
+    $.each(config.months, function(index, month) {
+      self.sessionsEarning[month] = {
+        "1": 0,
+        "2": 0,
+        "3": 0
+      };
+      self.sessionsNb[month] = 0;
+    });
   }
 
-  addSessionEarning(level, earning) {
-    this.sessionsEarning[level] += earning;
+  incrementSessionsNb(month) {
+    this.sessionsNb[month] += 1;
   }
 
-  getSessionsNb() {
-    return this.sessionsNb;
+  addSessionEarning(month, level, earning) {
+    this.sessionsEarning[month][level] += earning;
   }
 
-  getSessionsEarning() {
-    return this.sessionsEarning;
+  getSessionsNb(month) {
+    return this.sessionsNb[month];
   }
 
-  getTotalEarning() {
+  getSessionsEarning(month) {
+    return this.sessionsEarning[month];
+  }
+
+  getTotalEarning(month) {
     return (
-      this.sessionsEarning["1"] +
-      this.sessionsEarning["2"] +
-      this.sessionsEarning["3"]
+      this.sessionsEarning[month]["1"] +
+      this.sessionsEarning[month]["2"] +
+      this.sessionsEarning[month]["3"]
     );
   }
 
   getStatisticsHeaders() {
     return [
+      "Mois",
       "Total sessions",
       "Niveau 1",
       "Niveau 2",
@@ -42,13 +52,14 @@ class Statistics {
     ];
   }
 
-  getStatisticsInArray() {
+  getStatisticsInArray(month) {
     return [
-      this.sessionsNb,
-      this.sessionsEarning["1"],
-      this.sessionsEarning["2"],
-      this.sessionsEarning["3"],
-      this.getTotalEarning()
+      month,
+      this.sessionsNb[month],
+      this.sessionsEarning[month]["1"] + "€",
+      this.sessionsEarning[month]["2"] + "€",
+      this.sessionsEarning[month]["3"] + "€",
+      this.getTotalEarning(month) + "€"
     ];
   }
 }

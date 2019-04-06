@@ -13,11 +13,11 @@ class Display {
     return headers;
   }
 
-  createRow(stats) {
+  createRow(month, stats) {
     var row = $("<tr/>");
 
-    row.attr("id", "statisticsRow");
-    $.each(stats.getStatisticsInArray(), function(index, data) {
+    row.attr("id", "statisticsRow" + month);
+    $.each(stats.getStatisticsInArray(month), function(index, data) {
       row.append($("<td/>").text(data));
     });
 
@@ -25,20 +25,24 @@ class Display {
   }
 
   initializeTable(container, stats) {
+    var self = this;
     var table = $("<table/>")
       .addClass("crud-list")
       .attr("id", "statisticsTable");
     var headers = this.createColumnHeaders(stats.getStatisticsHeaders());
-    var row = this.createRow(stats);
+    var row = undefined;
 
     table.append(headers);
-    table.append(row);
+    $.each(config.months, function(index, month) {
+      row = self.createRow(month, stats);
+      table.append(row);
+    });
     container.prepend(table);
   }
 
-  refreshRow(stats) {
-    var row = this.createRow(stats);
+  refreshRow(month, stats) {
+    var row = this.createRow(month, stats);
 
-    $("#statisticsRow").replaceWith(row);
+    $("#statisticsRow" + month).replaceWith(row);
   }
 }

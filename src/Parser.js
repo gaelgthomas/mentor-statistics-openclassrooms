@@ -2,6 +2,7 @@ class Parser {
   constructor() {
     this.counter = 0;
     this.stats = new Statistics();
+    this.stats.initialize();
     this.display = new Display();
     this.display.initializeTable($("div#js-jpax-dynamic-content"), this.stats);
   }
@@ -10,9 +11,10 @@ class Parser {
     return string == "Annulée";
   }
 
-  addSessionToStatistics(element) {
-    this.stats.incrementSessionsNb();
+  addSessionToStatistics(month, element) {
+    this.stats.incrementSessionsNb(month);
     this.stats.addSessionEarning(
+      month,
       element["Niveau d'expertise"],
       Price.getPriceByLevelAndStatus(
         element["Niveau d'expertise"],
@@ -21,11 +23,19 @@ class Parser {
     );
   }
 
+  treatElement(month, element) {
+    if ($.inArray(month, config.months) == -1) {
+      return false;
+    }
+    if (!this.isCanceled(element["Statut"])) {
+      this.addSessionToStatistics(month, element);
+      this.display.refreshRow(month, this.stats);
+    }
+  }
+
   launchParsing(pageNb) {
-    var currentMonth = DateUtils.getCurrentMonth();
-    var previousMonth = DateUtils.getPreviousMonth();
     var loop = true;
-    var that = this;
+    var self = this;
 
     $.ajax({
       url: config.sessionsHistoryLink + pageNb,
@@ -41,20 +51,15 @@ class Parser {
           var dateArray = element["Date de session"].split(" ");
           var month = dateArray[1];
 
-          if (month != currentMonth) {
-            if (month == previousMonth) {
+          if (self.treatElement(month, element) == false) {
+            if (month == config.stopMonth) {
               loop = false;
               return false;
-            }
-          } else {
-            if (!that.isCanceled(element["Statut"])) {
-              that.addSessionToStatistics(element);
-              that.display.refreshRow(that.stats);
             }
           }
         });
 
-        if (loop) that.launchParsing(pageNb + 1);
+        if (loop) self.launchParsing(pageNb + 1);
       }
     });
   }

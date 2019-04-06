@@ -2,18 +2,18 @@
   "manifest_version": 2,
   "name": "Mentor Statistics OpenClassRooms",
   "version": "1.0",
-  "description": "A web extension for OpenClassRooms mentors that gives you access to more statistics on your session history.",
+  "description": "An extension that help you to have more informations on your incomes when you are an OpenClassRooms Mentor.",
   "permissions": ["tabs"],
   "content_scripts": [
     {
       "matches": [
-        "https://openclassrooms.com/*mentorship/dashboard/mentorship-sessions-history"
+        "https://openclassrooms.com/fr/mentorship/dashboard/mentorship-sessions-history"
       ],
       "js": [
         "libs/jquery-3.3.1.js",
         "libs/jquery.tabletojson.js",
-        "config/config.js",
         "src/DateUtils.js",
+        "config/config.js",
         "src/Price.js",
         "src/Statistics.js",
         "src/Display.js",
