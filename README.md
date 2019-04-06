@@ -25,7 +25,7 @@ This extension is downloadable on the Firefox Add-ons Store and the Chrome Web S
 
 ## How to run ?
 
-Once you have downloaded the extension, when you go on [the mentorship sessions history]](https://openclassrooms.com/fr/mentorship/dashboard/mentorship-sessions-history), a new table appear and the information start to appear.
+Once you have downloaded the extension, when you go on [the mentorship sessions history](https://openclassrooms.com/fr/mentorship/dashboard/mentorship-sessions-history), a new table appear and the information start to appear.
 The extension is a parser, you need to wait a little bit before getting all your current incomes.
 
 ### Install locally
