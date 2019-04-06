@@ -1,28 +1,49 @@
+/**
+ * Class with all methods to parse to parse mentorship sessions history pages.
+ * @class
+ */
 class Parser {
+  /**
+   * Initialization of required variables.
+   * @constructor
+   */
   constructor() {
-    this.counter = 0;
     this.stats = new Statistics();
     this.stats.initialize();
     this.display = new Display();
     this.display.initializeTable($("div#js-jpax-dynamic-content"), this.stats);
   }
 
-  isCanceled(string) {
-    return string == "Annulée";
+  /**
+   * Check if a state is canceled.
+   * @param  {string} str - String to compare
+   */
+  isCanceled(str) {
+    return str == "Annulée";
   }
 
+  /**
+   * Add a session to the statistic object.
+   * @param  {string} month - A month name
+   * @param  {Array} element - One row of the table
+   */
   addSessionToStatistics(month, element) {
     this.stats.incrementSessionsNb(month);
-    this.stats.addSessionEarning(
+    this.stats.addSessionIncome(
       month,
       element["Niveau d'expertise"],
-      Price.getPriceByLevelAndStatus(
+      Price.computePriceByLevelAndStatus(
         element["Niveau d'expertise"],
         element["Statut"]
       )
     );
   }
 
+  /**
+   * Treat one element and define if it can be add to statistics or not.
+   * @param {string} month - A month name
+   * @param {Array} element - One row of the table
+   */
   treatElement(month, element) {
     if ($.inArray(month, config.months) == -1) {
       return false;
@@ -33,6 +54,10 @@ class Parser {
     }
   }
 
+  /**
+   * Parse a mentorship session history page with his index.
+   * @param {int} pageNb - The page index
+   */
   launchParsing(pageNb) {
     var loop = true;
     var self = this;

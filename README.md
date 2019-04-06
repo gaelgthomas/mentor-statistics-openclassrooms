@@ -3,13 +3,14 @@
 Mentor Statistics is an Chrome/Firefox extension that help you have more information on your incomes when you are an OpenClassRooms Mentor.
 This extension is only working for French mentors at the moment.
 With this extension you will have a new table on your mentorship sessions history with these values for the 2 last months:
+
 - Total number of mentoring sessions
 - Incomes by level
 - Total incomes
 
 ## Important about [OpenClassRooms](https://openclassrooms.com)
 
-This extension is non-official. 
+This extension is non-official.
 After an exchange by email, the extension can be delivered publicly, but is in no way an official source to OpenClassRooms.
 The information delivered by the extensions cannot be used as reference with the OpenClassRooms team.
 
@@ -19,8 +20,8 @@ Thanks to OpenClassRooms to accept the publication of this extension.
 
 This extension is downloadable on the Firefox Add-ons Store and the Chrome Web Store.
 
-- [Firefox Add-ons Store](http://www.dropwizard.io/1.0.2/docs/) - To download extension for Firefox.
-- [Chrome Web Store](http://www.dropwizard.io/1.0.2/docs/) - To download extension for Chrome.
+- [Firefox Add-ons Store]() - To download extension for Firefox.
+- [Chrome Web Store]() - To download extension for Chrome.
 
 ## How to run ?
 
@@ -74,20 +75,20 @@ $ jsdoc -r src/
 
 ## Built with
 
-* [JQuery 3.3.1](https://jquery.com/) - Fast, small, and feature-rich JavaScript library.
-* [Table-to-JSON](https://www.github.developerdan.com/table-to-json/) - A jQuery plugin that converts an HTML Table into a javascript object.
+- [JQuery 3.3.1](https://jquery.com/) - Fast, small, and feature-rich JavaScript library.
+- [Table-to-JSON](https://www.github.developerdan.com/table-to-json/) - A jQuery plugin that converts an HTML Table into a javascript object.
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
-For the versions available, see the [tags on this repository](https://github.com/gael-thomas/Mentor-Statistics-OpenClassRooms/tags). 
+For the versions available, see the [tags on this repository](https://github.com/gael-thomas/Mentor-Statistics-OpenClassRooms/tags).
 
 ## Authors
 
-* **Gaël THOMAS** - *Initial work* - [gael-thomas](https://github.com/gael-thomas)
+- **Gaël THOMAS** - _Initial work_ - [gael-thomas](https://github.com/gael-thomas)
 
 ## License
 

@@ -1,6 +1,12 @@
+/**
+ * Class with all methods to display the statistics (by creating table).
+ * @class
+ */
 class Display {
-  constructor() {}
-
+  /**
+   * Create column headers with the array of headers.
+   * @param {Array} headersList - Array with the name of headers.
+   */
   createColumnHeaders(headersList) {
     var headers = $("<thead/>");
 
@@ -13,6 +19,11 @@ class Display {
     return headers;
   }
 
+  /**
+   * Create a row with statistics of one month.
+   * @param {string} month - A month name.
+   * @param {Statistics} stats - Statistics object.
+   */
   createRow(month, stats) {
     var row = $("<tr/>");
 
@@ -24,6 +35,11 @@ class Display {
     return row;
   }
 
+  /**
+   * Initialize the table with default values and headers.
+   * @param {*} container - DOM element selector.
+   * @param {Statistics} stats - Statistics object.
+   */
   initializeTable(container, stats) {
     var self = this;
     var table = $("<table/>")
@@ -40,6 +56,11 @@ class Display {
     container.prepend(table);
   }
 
+  /**
+   * Refresh values of one row (one month).
+   * @param {string} month - A month name.
+   * @param {Statistics} stats - Statistics object.
+   */
   refreshRow(month, stats) {
     var row = this.createRow(month, stats);
 
