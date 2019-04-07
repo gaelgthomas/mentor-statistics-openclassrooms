@@ -67,11 +67,30 @@ Now you have the extension locally on your chrome browser.
 
 ## Documentation
 
-All code is commented with JSDoc. In the root of the repository you can access to a documentation by typing the following command:
+All code is commented with **JSDoc**.
+**Node.JS** is required to use JSDoc. Follow these steps to install it on your computer:
+
+- [Windows](https://nodejs.org/en/download/) - Install on Windows.
+- [MacOSX](https://nodejs.org/en/download/) - Install on MacOSX.
+- Ubuntu - Use the command below:
+
+```
+$ sudo apt install nodejs npm
+```
+
+When you have downloaded Node.JS, open a terminal and install JSDoc with this command:
+
+```
+$ npm install -g jsdoc
+```
+
+When JSDoc in installed, you can access to a documentation in the root of the repository by typing the following command:
 
 ```
 $ jsdoc -r src/
 ```
+
+A **out/** folder is generated. Launch **out/index.html** with your browser to watch documentation.
 
 ## Built with
 
