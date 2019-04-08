@@ -20,8 +20,8 @@ Thanks to OpenClassRooms to accept the publication of this extension.
 
 This extension is downloadable on the Firefox Add-ons Store and the Chrome Web Store.
 
-- [Firefox Add-ons Store](https://addons.mozilla.org/en-US/firefox/addon/mentor-statistics-ocr/) - To download extension for Firefox.
 - [Chrome Web Store](https://chrome.google.com/webstore/detail/mentor-statistics-opencla/ojihaopldjoohbbpidenkbnahhapfdjd) - To download extension for Chrome.
+- [Firefox Add-ons Store](https://github.com/gael-thomas/Mentor-Statistics-OpenClassRooms/releases/download/1.0/mentor_statistics_openclassrooms-1.0-fx.xpi) - To download extension for Firefox.
 
 ## How to run ?
 
