@@ -6,6 +6,6 @@ var config = {
     "2": 35,
     "3": 40
   },
-  months: [DateUtils.getCurrentMonth(), DateUtils.getPreviousMonth()],
+  months: DateUtils.getLastThreeMonths(),
   stopMonth: DateUtils.getStopMonth()
 };

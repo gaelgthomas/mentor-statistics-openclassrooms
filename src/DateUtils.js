@@ -37,15 +37,31 @@ class DateUtils {
   }
 
   /**
-   * Return the previous month name.
-   * @static
+   * Return the month name (based on index) before current month.
+   * Example: Index = 1; Current month = February; Return (February - Index) = January.
+   * @param {int} index
    */
-  static getPreviousMonth() {
+  static getMonthFromCurrentMonth(index) {
     var date = new Date();
 
     return DateUtils.getMonthList()[
-      date.getMonth() == 0 ? 11 : date.getMonth() - 1
+      date.getMonth() == 0 ? 12 - index : date.getMonth() - index
     ];
+  }
+
+  /**
+   * Return the last three month names.
+   * @static
+   */
+  static getLastThreeMonths() {
+    var index = 0;
+    var monthList = [];
+
+    for (index; index < 3; index++) {
+      monthList.push(DateUtils.getMonthFromCurrentMonth(index));
+    }
+
+    return monthList;
   }
 
   /**
