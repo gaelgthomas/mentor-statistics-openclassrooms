@@ -72,7 +72,7 @@ class DateUtils {
     var date = new Date();
 
     return DateUtils.getMonthList()[
-      date.getMonth() == 0 ? 10 : date.getMonth() - 2
+      date.getMonth() == 0 ? 9 : date.getMonth() - 3
     ];
   }
 }

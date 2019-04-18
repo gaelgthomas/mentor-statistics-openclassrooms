@@ -8,42 +8,53 @@ class Statistics {
    * @constructor
    */
   constructor() {
-    this.sessionsNb = new Array();
-    this.sessionsIncomes = new Array();
+    this.normalIncomes = new Array();
+    this.canceledIncomes = new Array();
+    this.normalNb = new Array();
+    this.canceledNb = new Array();
+    this.sessionTypes = ["normal", "canceled"];
   }
 
   /**
-   * Initialize sessions number array and sessions incomes array.
+   *
+   * @param {SessionModel} session
+   */
+  addSession(session) {
+    var sessionType =
+      session.type == -1 ? this.sessionTypes[0] : this.sessionTypes[1];
+
+    this[sessionType + "Nb"][session.month][session.level] += 1;
+    this[sessionType + "Incomes"][session.month][session.level] +=
+      session.income;
+  }
+
+  /**
+   * Initialize a variable of the class by it's name.
+   * @param {string} variableName - Class variable name
+   * @param {string} month - A month name
+   */
+  initializeVariableByName(variableName, month) {
+    var defaultValues = {
+      "1": 0,
+      "2": 0,
+      "3": 0
+    };
+
+    this[variableName][month] = defaultValues;
+  }
+
+  /**
+   * Initialize sessions number arrays and sessions incomes arrays.
    */
   initialize() {
     var self = this;
 
-    $.each(config.months, function(index, month) {
-      self.sessionsIncomes[month] = {
-        "1": 0,
-        "2": 0,
-        "3": 0
-      };
-      self.sessionsNb[month] = 0;
+    $.each(config.months, function(mIndex, month) {
+      $.each(self.sessionTypes, function(mType, type) {
+        self.initializeVariableByName(type + "Nb", month);
+        self.initializeVariableByName(type + "Incomes", month);
+      });
     });
-  }
-
-  /**
-   * Add 1 to current session number of the month.
-   * @param {string} month - A month name.
-   */
-  incrementSessionsNb(month) {
-    this.sessionsNb[month] += 1;
-  }
-
-  /**
-   * Add income of a session.
-   * @param {string} month - A month name.
-   * @param {string} level - The level of session.
-   * @param {int} income - The income of session.
-   */
-  addSessionIncome(month, level, income) {
-    this.sessionsIncomes[month][level] += income;
   }
 
   /**
@@ -60,37 +71,22 @@ class Statistics {
    */
   getTotalIncome(month) {
     return (
-      this.sessionsIncomes[month]["1"] +
-      this.sessionsIncomes[month]["2"] +
-      this.sessionsIncomes[month]["3"]
+      this["normalIncomes"][month]["1"] +
+      this["normalIncomes"][month]["2"] +
+      this["normalIncomes"][month]["3"]
     );
-  }
-
-  /**
-   * Return an array with statistics headers (table headers).
-   */
-  getStatisticsHeaders() {
-    return [
-      "Mois",
-      "Total sessions",
-      "Niveau 1",
-      "Niveau 2",
-      "Niveau 3",
-      "Revenu total"
-    ];
   }
 
   /**
    * Return an array with all statistics (in order of headers).
    * @param {string} month - A month name.
    */
-  getStatisticsInArray(month) {
+  getTotalSessionsStats(month) {
     return [
       month,
-      this.sessionsNb[month],
-      this.sessionsIncomes[month]["1"] + "€",
-      this.sessionsIncomes[month]["2"] + "€",
-      this.sessionsIncomes[month]["3"] + "€",
+      this["normalIncomes"][month]["1"] + "€",
+      this["normalIncomes"][month]["2"] + "€",
+      this["normalIncomes"][month]["3"] + "€",
       this.getTotalIncome(month) + "€"
     ];
   }

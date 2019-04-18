@@ -19,6 +19,7 @@
         "libs/jquery.tabletojson.js",
         "src/DateUtils.js",
         "config/config.js",
+        "src/SessionModel.js",
         "src/Price.js",
         "src/Statistics.js",
         "src/Display.js",

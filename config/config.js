@@ -7,5 +7,13 @@ var config = {
     "3": 40
   },
   months: DateUtils.getLastThreeMonths(),
-  stopMonth: DateUtils.getStopMonth()
+  stopMonth: DateUtils.getStopMonth(),
+  tablesConfig: {
+    totalSessions: {
+      idName: "totalSessions",
+      title: "Total sessions",
+      headers: ["Mois", "Niveau 1", "Niveau 2", "Niveau 3", "Total"],
+      update: "getTotalSessionsStats"
+    }
+  }
 };
