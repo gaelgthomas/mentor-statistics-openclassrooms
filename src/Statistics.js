@@ -66,15 +66,34 @@ class Statistics {
   }
 
   /**
-   * Return total income of a month.
+   * Return month total informations (income + number of sessions) by level.
    * @param {string} month - A month name.
+   * @param {string} type - Type of session (normal or canceled).
    */
-  getTotalIncome(month) {
-    return (
-      this["normalIncomes"][month]["1"] +
-      this["normalIncomes"][month]["2"] +
-      this["normalIncomes"][month]["3"]
-    );
+  getMonthTotalInfosByType(month, type) {
+    var incomeType = type + "Incomes";
+    var nbType = type + "Nb";
+
+    return [
+      this[incomeType][month]["1"] +
+        this[incomeType][month]["2"] +
+        this[incomeType][month]["3"],
+      this[nbType][month]["1"] +
+        this[nbType][month]["2"] +
+        this[nbType][month]["3"]
+    ];
+  }
+
+  /**
+   * Return month level informations (income + number of sessions) by level.
+   * @param {string} month - A month name.
+   * @param {string} type - Type of session (normal or canceled).
+   */
+  getMonthLevelInfosByType(month, type, level) {
+    return [
+      this[type + "Incomes"][month][level],
+      this[type + "Nb"][month][level]
+    ];
   }
 
   /**
@@ -84,10 +103,10 @@ class Statistics {
   getTotalSessionsStats(month) {
     return [
       month,
-      this["normalIncomes"][month]["1"] + "€",
-      this["normalIncomes"][month]["2"] + "€",
-      this["normalIncomes"][month]["3"] + "€",
-      this.getTotalIncome(month) + "€"
+      this.getMonthLevelInfosByType(month, "normal", "1"),
+      this.getMonthLevelInfosByType(month, "normal", "2"),
+      this.getMonthLevelInfosByType(month, "normal", "3"),
+      this.getMonthTotalInfosByType(month, "normal")
     ];
   }
 }

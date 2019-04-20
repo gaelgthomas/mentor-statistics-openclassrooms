@@ -11,12 +11,25 @@ class Display {
     var headers = $("<thead/>");
 
     var row = $("<tr/>");
-    $.each(headersList, function(index, element) {
-      row.append($("<td/>").text(element));
+    $.each(headersList, function(key, format) {
+      row.append($("<td/>").text(key));
     });
     headers.append(row);
 
     return headers;
+  }
+
+  getFormattedRowData(month, stats, tableConfig) {
+    var rowData = stats[tableConfig.update](month);
+    var formattedRowData = [];
+    var index = 0;
+
+    $.each(tableConfig.headers, function(key, value) {
+      formattedRowData.push(value.format(rowData[index]));
+      index++;
+    });
+
+    return formattedRowData;
   }
 
   /**
@@ -26,39 +39,41 @@ class Display {
    */
   createRow(month, stats, tableConfig) {
     var row = $("<tr/>");
+    var data = stats[tableConfig.update](month);
+    var formattedRowData = this.getFormattedRowData(month, stats, tableConfig);
 
     row.attr("id", tableConfig.idName + month);
-    $.each(stats[tableConfig.update](month), function(index, data) {
+    $.each(formattedRowData, function(index, data) {
       row.append($("<td/>").text(data));
     });
 
     return row;
   }
 
-  createTable(container, stats, tableConfig) {
+  createTable(stats, tableConfig) {
     var self = this;
     var subContainer = $("<div/>").addClass("spacer-big");
     var table = $("<table/>")
       .addClass("crud-list")
       .attr("id", tableConfig.idName + "Table");
     var headers = this.createColumnHeaders(tableConfig.headers);
-    var row = undefined;
 
     table.append(headers);
     $.each(config.months, function(index, month) {
-      row = self.createRow(month, stats, tableConfig);
-      table.append(row);
+      table.append(self.createRow(month, stats, tableConfig));
     });
+
     subContainer.prepend(table);
-    subContainer.prepend("<h2>" + tableConfig.title + "</h2>");
-    container.prepend(subContainer);
+    subContainer.prepend($("<h2>").text(tableConfig.title));
+
+    return subContainer;
   }
 
-  initializeTables(container, stats) {
+  initializeTables(mainContainer, stats) {
     var self = this;
 
     $.each(config.tablesConfig, function(index, tableConfig) {
-      self.createTable(container, stats, tableConfig);
+      mainContainer.prepend(self.createTable(stats, tableConfig));
     });
   }
 

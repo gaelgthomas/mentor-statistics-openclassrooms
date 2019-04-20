@@ -12,7 +12,13 @@ var config = {
     totalSessions: {
       idName: "totalSessions",
       title: "Total sessions",
-      headers: ["Mois", "Niveau 1", "Niveau 2", "Niveau 3", "Total"],
+      headers: {
+        Mois: "{0}",
+        "Niveau 1": "{0}€ - {1} session(s)",
+        "Niveau 2": "{0}€ - {1} session(s)",
+        "Niveau 3": "{0}€ - {1} session(s)",
+        Total: "{0}€ - {1} session(s)"
+      },
       update: "getTotalSessionsStats"
     }
   }

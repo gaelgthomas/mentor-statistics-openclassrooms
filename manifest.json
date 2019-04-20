@@ -17,6 +17,7 @@
       "js": [
         "libs/jquery-3.3.1.js",
         "libs/jquery.tabletojson.js",
+        "libs/format.js",
         "src/DateUtils.js",
         "config/config.js",
         "src/SessionModel.js",
