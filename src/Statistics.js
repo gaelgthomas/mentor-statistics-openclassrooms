@@ -16,7 +16,7 @@ class Statistics {
   }
 
   /**
-   *
+   * Add a session model to statistics.
    * @param {SessionModel} session
    */
   addSession(session) {
@@ -58,14 +58,6 @@ class Statistics {
   }
 
   /**
-   * Return number of sessions on a month.
-   * @param {string} month - A month name.
-   */
-  getSessionsNb(month) {
-    return this.sessionsNb[month];
-  }
-
-  /**
    * Return month total informations (income + number of sessions) by level.
    * @param {string} month - A month name.
    * @param {string} type - Type of session (normal or canceled).
@@ -97,7 +89,50 @@ class Statistics {
   }
 
   /**
-   * Return an array with all statistics (in order of headers).
+   * Return total income by type of a month;
+   * @param {string} month - A month name.
+   * @param {string} type - Type of session (normal or canceled).
+   */
+  getTotalIncome(month, type) {
+    var totalIncome = 0;
+    var nbType = type + "Incomes";
+
+    for (var i = 1; i < 4; i++) {
+      totalIncome += this[nbType][month][i];
+    }
+    return totalIncome;
+  }
+
+  /**
+   * Return total hours by type of a month;
+   * @param {string} month - A month name.
+   * @param {string} type - Type of session (normal or canceled).
+   */
+  getTotalHours(month, type) {
+    var totalHours = 0;
+    var nbType = type + "Nb";
+
+    for (var i = 1; i < 4; i++) {
+      totalHours += this[nbType][month][i];
+    }
+    return totalHours;
+  }
+
+  /**
+   * Return average income by hours.
+   * @param {int} totalIncome
+   * @param {int} totalHours
+   */
+  getAverageIncome(totalIncome, totalHours) {
+    if (totalHours === 0 || isNaN(totalHours)) {
+      return 0;
+    } else {
+      return (totalIncome / totalHours).toFixed(2);
+    }
+  }
+
+  /**
+   * Return an array with all sessions tatistics (in order of headers).
    * @param {string} month - A month name.
    */
   getTotalSessionsStats(month) {
@@ -107,6 +142,44 @@ class Statistics {
       this.getMonthLevelInfosByType(month, "normal", "2"),
       this.getMonthLevelInfosByType(month, "normal", "3"),
       this.getMonthTotalInfosByType(month, "normal")
+    ];
+  }
+
+  /**
+   * Return an array with all no-shows statistics (in order of headers).
+   * @param {string} month - A month name.
+   */
+  getTotalNoShowsStats(month) {
+    return [
+      month,
+      this.getMonthLevelInfosByType(month, "canceled", "1"),
+      this.getMonthLevelInfosByType(month, "canceled", "2"),
+      this.getMonthLevelInfosByType(month, "canceled", "3"),
+      this.getMonthTotalInfosByType(month, "canceled")
+    ];
+  }
+
+  /**
+   * Return an array with all global statistics (in order of headers).
+   * @param {string} month - A month name.
+   */
+  getGlobalStatistics(month) {
+    var totalSessionIncome = this.getTotalIncome(month, "normal");
+    var totalNoShowsIncome = this.getTotalIncome(month, "canceled");
+    var totalSessionsNb = this.getTotalHours(month, "normal");
+    var totalNoShowsNb = this.getTotalHours(month, "canceled");
+
+    return [
+      month,
+      [
+        this.getAverageIncome(
+          totalSessionIncome + totalNoShowsIncome,
+          totalSessionsNb + totalNoShowsNb
+        ),
+        this.getAverageIncome(totalSessionIncome, totalSessionsNb)
+      ],
+      [totalSessionsNb, totalNoShowsNb],
+      [totalSessionIncome + totalNoShowsIncome, totalNoShowsIncome]
     ];
   }
 }

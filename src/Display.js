@@ -71,10 +71,12 @@ class Display {
 
   initializeTables(mainContainer, stats) {
     var self = this;
+    var subContainer = $("<div/>").attr("id", "tablesContainer");
 
     $.each(config.tablesConfig, function(index, tableConfig) {
-      mainContainer.prepend(self.createTable(stats, tableConfig));
+      subContainer.append(self.createTable(stats, tableConfig));
     });
+    mainContainer.prepend(subContainer);
   }
 
   /**
