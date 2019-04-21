@@ -11,12 +11,25 @@ class Display {
     var headers = $("<thead/>");
 
     var row = $("<tr/>");
-    $.each(headersList, function(index, element) {
-      row.append($("<td/>").text(element));
+    $.each(headersList, function(key, format) {
+      row.append($("<td/>").text(key));
     });
     headers.append(row);
 
     return headers;
+  }
+
+  getFormattedRowData(month, stats, tableConfig) {
+    var rowData = stats[tableConfig.update](month);
+    var formattedRowData = [];
+    var index = 0;
+
+    $.each(tableConfig.headers, function(key, value) {
+      formattedRowData.push(value.format(rowData[index]));
+      index++;
+    });
+
+    return formattedRowData;
   }
 
   /**
@@ -24,36 +37,46 @@ class Display {
    * @param {string} month - A month name.
    * @param {Statistics} stats - Statistics object.
    */
-  createRow(month, stats) {
+  createRow(month, stats, tableConfig) {
     var row = $("<tr/>");
+    var data = stats[tableConfig.update](month);
+    var formattedRowData = this.getFormattedRowData(month, stats, tableConfig);
 
-    row.attr("id", "statisticsRow" + month);
-    $.each(stats.getStatisticsInArray(month), function(index, data) {
+    row.attr("id", tableConfig.idName + month);
+    $.each(formattedRowData, function(index, data) {
       row.append($("<td/>").text(data));
     });
 
     return row;
   }
 
-  /**
-   * Initialize the table with default values and headers.
-   * @param {*} container - DOM element selector.
-   * @param {Statistics} stats - Statistics object.
-   */
-  initializeTable(container, stats) {
+  createTable(stats, tableConfig) {
     var self = this;
+    var subContainer = $("<div/>").addClass("spacer-big");
     var table = $("<table/>")
       .addClass("crud-list")
-      .attr("id", "statisticsTable");
-    var headers = this.createColumnHeaders(stats.getStatisticsHeaders());
-    var row = undefined;
+      .attr("id", tableConfig.idName + "Table");
+    var headers = this.createColumnHeaders(tableConfig.headers);
 
     table.append(headers);
     $.each(config.months, function(index, month) {
-      row = self.createRow(month, stats);
-      table.append(row);
+      table.append(self.createRow(month, stats, tableConfig));
     });
-    container.prepend(table);
+
+    subContainer.prepend(table);
+    subContainer.prepend($("<h2>").text(tableConfig.title));
+
+    return subContainer;
+  }
+
+  initializeTables(mainContainer, stats) {
+    var self = this;
+    var subContainer = $("<div/>").attr("id", "tablesContainer");
+
+    $.each(config.tablesConfig, function(index, tableConfig) {
+      subContainer.append(self.createTable(stats, tableConfig));
+    });
+    mainContainer.prepend(subContainer);
   }
 
   /**
@@ -62,8 +85,12 @@ class Display {
    * @param {Statistics} stats - Statistics object.
    */
   refreshRow(month, stats) {
-    var row = this.createRow(month, stats);
+    var self = this;
+    var row = undefined;
 
-    $("#statisticsRow" + month).replaceWith(row);
+    $.each(config.tablesConfig, function(index, tableConfig) {
+      row = self.createRow(month, stats, tableConfig);
+      $("#" + tableConfig.idName + month).replaceWith(row);
+    });
   }
 }

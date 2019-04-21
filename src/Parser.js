@@ -11,32 +11,40 @@ class Parser {
     this.stats = new Statistics();
     this.stats.initialize();
     this.display = new Display();
-    this.display.initializeTable($("div#js-jpax-dynamic-content"), this.stats);
+    this.display.initializeTables($("div#js-jpax-dynamic-content"), this.stats);
   }
 
   /**
-   * Check if a state is canceled.
+   * Check if a state is canceled or late canceled.
+   * Return 0 = Canceled
+   * Return 1 = Late canceled
+   * Return -1 = Not canceled
    * @param  {string} str - String to compare
    */
   isCanceled(str) {
-    return str == "Annulée";
+    var cancelType = ["Annulée", "Annulée tardivement"];
+
+    return cancelType.indexOf(str);
   }
 
   /**
    * Add a session to the statistic object.
    * @param  {string} month - A month name
    * @param  {Array} element - One row of the table
+   * @param  {int} isCanceled - Define the type of cancel (1: late canceled, -1: not canceled)
    */
-  addSessionToStatistics(month, element) {
-    this.stats.incrementSessionsNb(month);
-    this.stats.addSessionIncome(
-      month,
+  addSessionToStatistics(month, element, isCanceled) {
+    var session = new SessionModel();
+
+    session.type = isCanceled;
+    session.month = month;
+    session.level = element["Niveau d'expertise"];
+    session.income = Price.computePriceByLevelAndStatus(
       element["Niveau d'expertise"],
-      Price.computePriceByLevelAndStatus(
-        element["Niveau d'expertise"],
-        element["Statut"]
-      )
+      element["Statut"]
     );
+
+    this.stats.addSession(session);
   }
 
   /**
@@ -45,11 +53,15 @@ class Parser {
    * @param {Array} element - One row of the table
    */
   treatElement(month, element) {
+    var isCanceled = -1;
+
     if ($.inArray(month, config.months) == -1) {
       return false;
     }
-    if (!this.isCanceled(element["Statut"])) {
-      this.addSessionToStatistics(month, element);
+
+    isCanceled = this.isCanceled(element["Statut"]);
+    if (isCanceled != 0) {
+      this.addSessionToStatistics(month, element, isCanceled);
       this.display.refreshRow(month, this.stats);
     }
   }
