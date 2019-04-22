@@ -22,7 +22,7 @@ class Parser {
    * @param  {string} str - String to compare
    */
   isCanceled(str) {
-    var cancelType = ["Annulée", "Annulée tardivement"];
+    var cancelType = ["Annulée", "Annulée tardivement", "Étudiant absent"];
 
     return cancelType.indexOf(str);
   }
