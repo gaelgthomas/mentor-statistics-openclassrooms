@@ -109,6 +109,10 @@ For the versions available, see the [tags on this repository](https://github.com
 
 - **Gaël THOMAS** - _Initial work_ - [gael-thomas](https://github.com/gael-thomas)
 
+## Contributors
+
+- **Aiwanesk** - _Bug fix_ - [aiwanesk](https://github.com/aiwanesk)
+
 ## License
 
 This project is under license - see the [LICENSE.md](LICENSE.md) file for details.
