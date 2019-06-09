@@ -11,7 +11,7 @@ class Price {
   static computePriceByLevelAndStatus(level, status) {
     var price = config.sessionPrices[level];
 
-    if (status == "Annulée tardivement" || status == "Étudiant absent") {
+    if (status == "Annulée tardivement" || status == "Étudiant absent" || status == "Étudiante absente") {
       price = price / 2;
     }
 
