@@ -1,14 +1,18 @@
 {
   "manifest_version": 2,
   "name": "Mentor Statistics OpenClassRooms",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "An extension that help you to have more statistics on your incomes when you are an OpenClassRooms Mentor.",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "permissions": ["tabs"],
+  "permissions": ["tabs", "storage"],
+  "browser_action": {
+    "default_popup": "./popup/index.html",
+    "default_title": "Language selector"
+  },
   "content_scripts": [
     {
       "matches": [
@@ -20,6 +24,8 @@
         "libs/format.js",
         "src/DateUtils.js",
         "config/config.js",
+        "config/translations.js",
+        "src/UserPreferences.js",
         "src/SessionModel.js",
         "src/Price.js",
         "src/Statistics.js",

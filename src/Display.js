@@ -4,6 +4,14 @@
  */
 class Display {
   /**
+   * Initialization of required variables.
+   * @constructor
+   */
+  constructor() {
+    this.translate = translations[UserPreferences.getUserLanguage()];
+  }
+
+  /**
    * Create column headers with the array of headers.
    * @param {Array} headersList - Array with the name of headers.
    */
@@ -11,9 +19,9 @@ class Display {
     var headers = $("<thead/>");
 
     var row = $("<tr/>");
-    $.each(headersList, function(key, format) {
-      row.append($("<td/>").text(key));
-    });
+    for (var elem in headersList) {
+      row.append($("<td/>").text(this.translate[elem]));
+    }
     headers.append(row);
 
     return headers;
@@ -24,10 +32,12 @@ class Display {
     var formattedRowData = [];
     var index = 0;
 
-    $.each(tableConfig.headers, function(key, value) {
-      formattedRowData.push(value.format(rowData[index]));
+    for (var key in tableConfig.headers) {
+      var value = tableConfig.headers[key];
+
+      formattedRowData.push(this.translate[value].format(rowData[index]));
       index++;
-    });
+    }
 
     return formattedRowData;
   }
@@ -64,7 +74,7 @@ class Display {
     });
 
     subContainer.prepend(table);
-    subContainer.prepend($("<h2>").text(tableConfig.title));
+    subContainer.prepend($("<h2>").text(this.translate[tableConfig.title]));
 
     return subContainer;
   }

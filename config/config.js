@@ -1,4 +1,7 @@
 var config = {
+  defaultLanguage: "FR",
+  localKeyLanguage: "Mentor-Statistics-OpenClassrooms-Language-Configuration",
+  availableLanguages: ["FR", "EN"],
   sessionsHistoryLink:
     "https://openclassrooms.com/fr/mentorship/dashboard/mentorship-sessions-history?page=",
   sessionPrices: {
@@ -9,40 +12,40 @@ var config = {
   months: DateUtils.getLastThreeMonths(),
   stopMonth: DateUtils.getStopMonth(),
   tablesConfig: {
+    totalIncomes: {
+      idName: "totalIncomes",
+      title: "TOTAL",
+      headers: {
+        MONTH: "MONTH_TEXT",
+        HOURLY_AVERAGE: "HOURLY_AVERAGE_TEXT",
+        MENTORING_HOURS: "MENTORING_HOURS_TEXT",
+        INCOMES: "INCOMES_TEXT"
+      },
+      update: "getGlobalStatistics"
+    },
     totalSessions: {
       idName: "totalSessions",
-      title: "Total sessions",
+      title: "TOTAL_SESSIONS",
       headers: {
-        Mois: "{0}",
-        "Niveau 1": "{0}€ - {1} session(s)",
-        "Niveau 2": "{0}€ - {1} session(s)",
-        "Niveau 3": "{0}€ - {1} session(s)",
-        Revenus: "{0}€ - {1} session(s)"
+        MONTH: "MONTH_TEXT",
+        LEVEL_1: "LEVEL_TEXT",
+        LEVEL_2: "LEVEL_TEXT",
+        LEVEL_3: "LEVEL_TEXT",
+        INCOMES: "LEVEL_TEXT"
       },
       update: "getTotalSessionsStats"
     },
     totalNoShows: {
       idName: "totalNoShows",
-      title: "Total no-shows",
+      title: "TOTAL_NOSHOWS",
       headers: {
-        Mois: "{0}",
-        "Niveau 1": "{0}€ - {1} session(s)",
-        "Niveau 2": "{0}€ - {1} session(s)",
-        "Niveau 3": "{0}€ - {1} session(s)",
-        Revenus: "{0}€ - {1} session(s)"
+        MONTH: "MONTH_TEXT",
+        LEVEL_1: "LEVEL_TEXT",
+        LEVEL_2: "LEVEL_TEXT",
+        LEVEL_3: "LEVEL_TEXT",
+        INCOMES: "LEVEL_TEXT"
       },
       update: "getTotalNoShowsStats"
-    },
-    totalIncomes: {
-      idName: "totalIncomes",
-      title: "Total",
-      headers: {
-        Mois: "{0}",
-        "Moyenne horaire": "{0}€/h ({1}€/h sans no-shows)",
-        "Heures de mentorat": "{0}h et {1}h en no-shows",
-        Revenus: "{0}€ dont {1}€ en no-shows"
-      },
-      update: "getGlobalStatistics"
     }
   }
 };

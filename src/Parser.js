@@ -19,10 +19,15 @@ class Parser {
    * Return 0 = Canceled
    * Return 1 = Late canceled
    * Return -1 = Not canceled
-   * @param  {string} str - String to compare
+   * @param {string} str - String to compare
    */
   isCanceled(str) {
-    var cancelType = ["Annulée", "Annulée tardivement", "Étudiant absent", "Étudiante absente"];
+    var cancelType = [
+      "Annulée",
+      "Annulée tardivement",
+      "Étudiant absent",
+      "Étudiante absente"
+    ];
 
     return cancelType.indexOf(str);
   }
