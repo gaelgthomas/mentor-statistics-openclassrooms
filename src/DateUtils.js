@@ -45,7 +45,7 @@ class DateUtils {
     var date = new Date();
 
     return DateUtils.getMonthList()[
-      date.getMonth() == 0 ? 12 - index : date.getMonth() - index
+      (12 + date.getMonth() - index)%12
     ];
   }
 
