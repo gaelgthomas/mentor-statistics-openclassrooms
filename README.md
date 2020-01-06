@@ -112,6 +112,7 @@ For the versions available, see the [tags on this repository](https://github.com
 ## Contributors
 
 - **Aiwanesk** - _Bug fix_ - [aiwanesk](https://github.com/aiwanesk)
+- **Gahfy** - _Bug fix_ - [gahfy](https://github.com/gahfy)
 
 ## License
 
