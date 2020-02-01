@@ -2,6 +2,7 @@
  * Static class with all utilities to use dates.
  * @class
  */
+
 class DateUtils {
   /**
    * Return an array with all month names.
@@ -34,6 +35,24 @@ class DateUtils {
     var date = new Date();
 
     return DateUtils.getMonthList()[date.getMonth()];
+  }
+
+  /**
+   * Returns whether the given month and year are older than one year or not.
+   * ATTENTION: If we are in January 2020, January 2019 will return false
+   * @param {string} month The name of the month of the date to check
+   * @param {string} year The year (as a 4 characters string) of the date to check
+   * @return {boolean} whether the given month and year are older than one year or not
+   */
+  static isOlderThanOneYear(month, year) {
+    var monthIndex = DateUtils.getMonthList().indexOf(month);
+    var yearInt = parseInt(year)-1900;
+
+    var date = new Date();
+    var currentMonth = date.getMonth();
+    var currentYear = date.getYear();
+
+    return (currentMonth < monthIndex || currentYear > yearInt) && (currentMonth >= monthIndex || currentYear > yearInt+1);
   }
 
   /**
