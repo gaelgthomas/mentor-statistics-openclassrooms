@@ -12,7 +12,7 @@ class Display {
 
     var row = $("<tr/>");
     $.each(headersList, function(key, format) {
-      row.append($("<td/>").text(key));
+      row.append($("<td/>").text(Translation[LanguageUtils.getLanguage()][key]));
     });
     headers.append(row);
 

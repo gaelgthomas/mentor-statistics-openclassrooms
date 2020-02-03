@@ -22,7 +22,6 @@ class Statistics {
   addSession(session) {
     var sessionType =
       session.type == -1 ? this.sessionTypes[0] : this.sessionTypes[1];
-
     this[sessionType + "Nb"][session.month][session.level] += 1;
     this[sessionType + "Incomes"][session.month][session.level] +=
       session.income;

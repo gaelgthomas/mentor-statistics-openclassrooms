@@ -1,6 +1,5 @@
 var config = {
-  sessionsHistoryLink:
-    "https://openclassrooms.com/fr/mentorship/dashboard/mentorship-sessions-history?page=",
+  sessionsHistoryLink: "https://openclassrooms.com/"+LanguageUtils.getLanguage()+"/mentorship/dashboard/mentorship-sessions-history?page=",
   sessionPrices: {
     "1": 30,
     "2": 35,
@@ -11,36 +10,36 @@ var config = {
   tablesConfig: {
     totalSessions: {
       idName: "totalSessions",
-      title: "Total sessions",
+      title: Translation[LanguageUtils.getLanguage()].totalSessions,
       headers: {
-        Mois: "{0}",
-        "Niveau 1": "{0}€ - {1} session(s)",
-        "Niveau 2": "{0}€ - {1} session(s)",
-        "Niveau 3": "{0}€ - {1} session(s)",
-        Revenus: "{0}€ - {1} session(s)"
+        "monthTitle": "{0}",
+        "level1Title": Translation[LanguageUtils.getLanguage()].level1Stats,
+        "level2Title": Translation[LanguageUtils.getLanguage()].level2Stats,
+        "level3Title": Translation[LanguageUtils.getLanguage()].level3Stats,
+        "incomeTitle": Translation[LanguageUtils.getLanguage()].incomesStats
       },
       update: "getTotalSessionsStats"
     },
     totalNoShows: {
       idName: "totalNoShows",
-      title: "Total no-shows",
+      title: Translation[LanguageUtils.getLanguage()].totalNoShow,
       headers: {
-        Mois: "{0}",
-        "Niveau 1": "{0}€ - {1} session(s)",
-        "Niveau 2": "{0}€ - {1} session(s)",
-        "Niveau 3": "{0}€ - {1} session(s)",
-        Revenus: "{0}€ - {1} session(s)"
+        "monthTitle": "{0}",
+        "level1Title": Translation[LanguageUtils.getLanguage()].level1Stats,
+        "level2Title": Translation[LanguageUtils.getLanguage()].level2Stats,
+        "level3Title": Translation[LanguageUtils.getLanguage()].level3Stats,
+        "incomeTitle": Translation[LanguageUtils.getLanguage()].incomesStats
       },
       update: "getTotalNoShowsStats"
     },
     totalIncomes: {
       idName: "totalIncomes",
-      title: "Total",
+      title: Translation[LanguageUtils.getLanguage()].grandTotal,
       headers: {
-        Mois: "{0}",
-        "Moyenne horaire": "{0}€/h ({1}€/h sans no-shows)",
-        "Heures de mentorat": "{0}h et {1}h en no-shows",
-        Revenus: "{0}€ dont {1}€ en no-shows"
+        "monthTitle": "{0}",
+        "grandTotalHourlyTitle": Translation[LanguageUtils.getLanguage()].grandTotalHourlyRate,
+        "grandTotalMentorshipHoursTitle": Translation[LanguageUtils.getLanguage()].grandTotalMentorshipHours,
+        "incomeTitle": Translation[LanguageUtils.getLanguage()].grandTotalIncome
       },
       update: "getGlobalStatistics"
     }
