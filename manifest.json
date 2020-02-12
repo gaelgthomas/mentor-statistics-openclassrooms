@@ -12,12 +12,15 @@
   "content_scripts": [
     {
       "matches": [
-        "https://openclassrooms.com/fr/mentorship/dashboard/mentorship-sessions-history"
+        "https://openclassrooms.com/fr/mentorship/dashboard/mentorship-sessions-history",
+        "https://openclassrooms.com/en/mentorship/dashboard/mentorship-sessions-history"
       ],
       "js": [
         "libs/jquery-3.3.1.js",
         "libs/jquery.tabletojson.js",
         "libs/format.js",
+        "src/Translation.js",
+        "src/LanguageUtils.js",
         "src/DateUtils.js",
         "config/config.js",
         "src/SessionModel.js",

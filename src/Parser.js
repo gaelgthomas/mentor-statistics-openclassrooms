@@ -22,7 +22,7 @@ class Parser {
    * @param  {string} str - String to compare
    */
   isCanceled(str) {
-    var cancelType = ["Annulée", "Annulée tardivement", "Étudiant absent", "Étudiante absente"];
+    var cancelType = Translation[LanguageUtils.getLanguage()]["cancel"];
 
     return cancelType.indexOf(str);
   }
@@ -38,10 +38,10 @@ class Parser {
 
     session.type = isCanceled;
     session.month = month;
-    session.level = element["Niveau d'expertise"];
+    session.level = element[Translation[LanguageUtils.getLanguage()]["expertiseLevel"]];
     session.income = Price.computePriceByLevelAndStatus(
-      element["Niveau d'expertise"],
-      element["Statut"]
+      element[Translation[LanguageUtils.getLanguage()]["expertiseLevel"]],
+      element[Translation[LanguageUtils.getLanguage()]["status"]]
     );
 
     this.stats.addSession(session);
@@ -60,7 +60,7 @@ class Parser {
       return false;
     }
 
-    isCanceled = this.isCanceled(element["Statut"]);
+    isCanceled = this.isCanceled(element[Translation[LanguageUtils.getLanguage()]["status"]]);
     if (isCanceled != 0) {
       this.addSessionToStatistics(month, element, isCanceled);
       this.display.refreshRow(month, this.stats);
@@ -86,10 +86,11 @@ class Parser {
           });
 
         $.each(json, function(index, element) {
-          var dateArray = element["Date de session"].split(" ");
-          var month = dateArray[1];
-          var year = dateArray[2];
+          var dateArray = element[Translation[LanguageUtils.getLanguage()]["sessionDate"]].split(" ");
+          var month = Translation[LanguageUtils.getLanguage()].getMonthFromSplittedDate(dateArray);
+          var year = Translation[LanguageUtils.getLanguage()].getYearFromSplittedDate(dateArray);
 
+          console.log(month+"/"+year);
           if (self.treatElement(month, year, element) == false) {
             if (month == config.stopMonth) {
               loop = false;

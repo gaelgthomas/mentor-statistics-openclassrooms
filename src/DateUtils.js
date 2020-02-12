@@ -10,18 +10,18 @@ class DateUtils {
    */
   static getMonthList() {
     var monthList = [
-      "janvier",
-      "février",
-      "mars",
-      "avril",
-      "mai",
-      "juin",
-      "juillet",
-      "août",
-      "septembre",
-      "octobre",
-      "novembre",
-      "décembre"
+      Translation[LanguageUtils.getLanguage()].january,
+      Translation[LanguageUtils.getLanguage()].february,
+      Translation[LanguageUtils.getLanguage()].march,
+      Translation[LanguageUtils.getLanguage()].april,
+      Translation[LanguageUtils.getLanguage()].may,
+      Translation[LanguageUtils.getLanguage()].june,
+      Translation[LanguageUtils.getLanguage()].july,
+      Translation[LanguageUtils.getLanguage()].august,
+      Translation[LanguageUtils.getLanguage()].september,
+      Translation[LanguageUtils.getLanguage()].october,
+      Translation[LanguageUtils.getLanguage()].november,
+      Translation[LanguageUtils.getLanguage()].december
     ];
 
     return monthList;
@@ -45,7 +45,7 @@ class DateUtils {
    * @return {boolean} whether the given month and year are older than one year or not
    */
   static isOlderThanOneYear(month, year) {
-    var monthIndex = DateUtils.getMonthList().indexOf(month);
+    var monthIndex = DateUtils.getMonthList().indexOf(month[0].toUpperCase()+month.slice(1));
     var yearInt = parseInt(year)-1900;
 
     var date = new Date();
