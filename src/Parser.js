@@ -50,12 +50,13 @@ class Parser {
   /**
    * Treat one element and define if it can be add to statistics or not.
    * @param {string} month - A month name
+   * @param {string} year - The year (as a four character string, like "2020")
    * @param {Array} element - One row of the table
    */
-  treatElement(month, element) {
+  treatElement(month, year, element) {
     var isCanceled = -1;
 
-    if ($.inArray(month, config.months) == -1) {
+    if ($.inArray(month, config.months) == -1 || DateUtils.isOlderThanOneYear(month, year)) {
       return false;
     }
 
@@ -87,8 +88,9 @@ class Parser {
         $.each(json, function(index, element) {
           var dateArray = element["Date de session"].split(" ");
           var month = dateArray[1];
+          var year = dateArray[2];
 
-          if (self.treatElement(month, element) == false) {
+          if (self.treatElement(month, year, element) == false) {
             if (month == config.stopMonth) {
               loop = false;
               return false;
