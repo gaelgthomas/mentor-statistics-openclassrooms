@@ -11,7 +11,7 @@ class Parser {
     this.stats = new Statistics();
     this.stats.initialize();
     this.display = new Display();
-    this.display.initializeTables($("div#js-jpax-dynamic-content"), this.stats);
+    this.display.initializeTables($(".tab.spacer"), this.stats);
   }
 
   /**
@@ -38,7 +38,8 @@ class Parser {
 
     session.type = isCanceled;
     session.month = month;
-    session.level = element[Translation[LanguageUtils.getLanguage()]["expertiseLevel"]];
+    session.level =
+      element[Translation[LanguageUtils.getLanguage()]["expertiseLevel"]];
     session.income = Price.computePriceByLevelAndStatus(
       element[Translation[LanguageUtils.getLanguage()]["expertiseLevel"]],
       element[Translation[LanguageUtils.getLanguage()]["status"]]
@@ -56,11 +57,16 @@ class Parser {
   treatElement(month, year, element) {
     var isCanceled = -1;
 
-    if ($.inArray(month, config.months) == -1 || DateUtils.isOlderThanOneYear(month, year)) {
+    if (
+      $.inArray(month, config.months) == -1 ||
+      DateUtils.isOlderThanOneYear(month, year)
+    ) {
       return false;
     }
 
-    isCanceled = this.isCanceled(element[Translation[LanguageUtils.getLanguage()]["status"]]);
+    isCanceled = this.isCanceled(
+      element[Translation[LanguageUtils.getLanguage()]["status"]]
+    );
     if (isCanceled != 0) {
       this.addSessionToStatistics(month, element, isCanceled);
       this.display.refreshRow(month, this.stats);
@@ -80,17 +86,22 @@ class Parser {
       type: "GET",
       success: function(res) {
         var json = $(res)
-          .find("div#js-jpax-dynamic-content table")
+          .find(".crud-list:first")
           .tableToJSON({
             ignoreHiddenRows: false
           });
 
         $.each(json, function(index, element) {
-          var dateArray = element[Translation[LanguageUtils.getLanguage()]["sessionDate"]].split(" ");
-          var month = Translation[LanguageUtils.getLanguage()].getMonthFromSplittedDate(dateArray);
-          var year = Translation[LanguageUtils.getLanguage()].getYearFromSplittedDate(dateArray);
+          var dateArray = element[
+            Translation[LanguageUtils.getLanguage()]["sessionDate"]
+          ].split(" ");
+          var month = Translation[
+            LanguageUtils.getLanguage()
+          ].getMonthFromSplittedDate(dateArray);
+          var year = Translation[
+            LanguageUtils.getLanguage()
+          ].getYearFromSplittedDate(dateArray);
 
-          console.log(month+"/"+year);
           if (self.treatElement(month, year, element) == false) {
             if (month == config.stopMonth) {
               loop = false;

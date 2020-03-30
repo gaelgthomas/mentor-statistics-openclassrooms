@@ -12,7 +12,9 @@ class Display {
 
     var row = $("<tr/>");
     $.each(headersList, function(key, format) {
-      row.append($("<td/>").text(Translation[LanguageUtils.getLanguage()][key]));
+      row.append(
+        $("<td/>").text(Translation[LanguageUtils.getLanguage()][key])
+      );
     });
     headers.append(row);
 
@@ -64,7 +66,11 @@ class Display {
     });
 
     subContainer.prepend(table);
-    subContainer.prepend($("<h2>").text(tableConfig.title));
+    subContainer.prepend(
+      $("<h2>")
+        .addClass("MuiTypography-alignLeft")
+        .text(tableConfig.title)
+    );
 
     return subContainer;
   }
@@ -76,7 +82,7 @@ class Display {
     $.each(config.tablesConfig, function(index, tableConfig) {
       subContainer.append(self.createTable(stats, tableConfig));
     });
-    mainContainer.prepend(subContainer);
+    mainContainer.append(subContainer);
   }
 
   /**
