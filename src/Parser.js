@@ -67,7 +67,7 @@ class Parser {
     isCanceled = this.isCanceled(
       element[Translation[LanguageUtils.getLanguage()]["status"]]
     );
-    if (isCanceled != 0) {
+    if (isCanceled != 0 && isCanceled != 1) {
       this.addSessionToStatistics(month, element, isCanceled);
       this.display.refreshRow(month, this.stats);
     }
