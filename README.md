@@ -107,7 +107,7 @@ For the versions available, see the [tags on this repository](https://github.com
 
 ## Authors
 
-- **Gaël THOMAS** - _Initial work_ - [gael-thomas](https://github.com/gael-thomas)
+- **Gaël THOMAS** - _Initial work_ - [gaelgthomas](https://github.com/gaelgthomas)
 
 ## Contributors
 
