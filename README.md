@@ -1,4 +1,4 @@
-# Mentor Statistics OpenClassRooms
+# Mentor Statistics OpenClassRooms (DEPRECATED)
 
 Mentor Statistics is an Chrome/Firefox extension that help you have more information on your incomes when you are an OpenClassRooms Mentor.
 This extension is only working for French mentors at the moment.
